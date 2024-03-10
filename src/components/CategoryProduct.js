@@ -1,7 +1,25 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import styled from "styled-components";
 
+const ProductTitle = styled.div`
+  grid-column: 1 / span 3;
+  color: darkslategray;
+  font-weight: bold;
+  font-size: 1.5em;
+  padding-left: 10px;
+  margin-top: 5px;
+`;
+
+const ProductImageContainer = styled.div`
+  padding: 10px;
+  width: 60%;
+`;
+
+const ProductImageContainerImage = styled.img`
+  width: 100%;
+  height: 100%;
+`;
 const CategoryProduct = ({
   id,
   title,
@@ -13,15 +31,15 @@ const CategoryProduct = ({
 }) => {
   const navigate = useNavigate();
   return (
-    <article className="category-product-title">
-      <div className="category-product-title">
+    <article>
+      <ProductTitle>
         <Link to={`products/${id}`}>{title}</Link>
-      </div>
+      </ProductTitle>
 
       <figure>
-        <div className="category-product-image-container">
-          <img src={`/assets/${image}`} alt="title" />
-        </div>
+        <ProductImageContainer>
+          <ProductImageContainerImage src={`/assets/${image}`} alt="title" />
+        </ProductImageContainer>
       </figure>
 
       <aside>
