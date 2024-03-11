@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getProductById } from "../fetcher";
+import { getProductById, getProducts } from "../fetcher";
+import styled from "styled-components";
 
 const ProductDetail = () => {
   const [product, setProduct] = useState({ errorMessage: "", data: {} });
@@ -18,9 +19,13 @@ const ProductDetail = () => {
     fetchData();
   }, [productId]);
 
+  const createMarkup = () => {
+    return { __html: product.data?.description };
+  };
+
   return (
-    <article className="category-product-title">
-      <div className="category-product-title">{product.data.title}</div>
+    <article>
+      <ProductTitle>{product.data.title}</ProductTitle>
 
       <figure>
         <div className="category-product-image-container">
@@ -65,9 +70,24 @@ const ProductDetail = () => {
         </div>
       </aside>
 
-      <div>{product.data?.description}</div>
+      <ProductDescription
+        dangerouslySetInnerHTML={createMarkup()}
+      ></ProductDescription>
     </article>
   );
 };
 
 export default ProductDetail;
+
+const ProductTitle = styled.div`
+  grid-column: 1 / span 3;
+  color: darkslategray;
+  font-weight: bold;
+  font-size: 1.5em;
+  padding-left: 10px;
+  margin-top: 5px;
+`;
+
+const ProductDescription = styled.div`
+  grid-column: 1 / span 3;
+`;

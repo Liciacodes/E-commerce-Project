@@ -1,68 +1,42 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
+import ProductDetail from "./components/ProductDetail";
+import Checkout from "./components/Checkout";
+import Basket from "./components/Basket";
 import Category from "./components/Category";
-import { getCategories, getProducts } from "./fetcher";
-import CategoryProduct from "./components/CategoryProduct";
+import Layout from "./components/Layout";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { getCategories } from "./fetcher";
 
 function App() {
-  const [categories, setCategories] = useState({ errorMessage: "", data: [] });
-  const [products, setProducts] = useState({ errorMessage: "", data: [] });
+  const [categories, setCategories] = useState({
+    errorMessage: "",
+    data: [],
+  });
 
-  useEffect(() => {
+  React.useEffect(() => {
     const fetchData = async () => {
       const responseObject = await getCategories();
-
       setCategories(responseObject);
     };
     fetchData();
   }, []);
 
-  const handleCategoryClick = (id) => {
-    const fetchData = async () => {
-      const responseObject = await getProducts(id);
-      setProducts(responseObject);
-    };
-    fetchData();
-  };
-
-  const renderCategories = () => {
-    return categories.data.map((c) => (
-      <Category
-        key={c.id}
-        id={c.id}
-        title={c.title}
-        onCategoryClick={() => handleCategoryClick(c.id)}
-      />
-    ));
-  };
-
-  const renderProducts = () => {
-    return products.data.map((p) => (
-      <CategoryProduct {...p} key={p.id}>
-        {" "}
-        {p.title}
-      </CategoryProduct>
-    ));
-  };
-
   return (
     <>
-      <header>My Store</header>
-      <section>
-        <nav>
-          {categories.errorMessage && (
-            <div> Error:{categories.errorMessage}</div>
-          )}
-          {categories.data && renderCategories()}
-        </nav>
-        <main>
-          <h1>Products</h1>
-          {products && renderProducts()}
-          {products.errorMessage && <div>{products.errorMessage}</div>}
-        </main>
-      </section>
-
-      <footer>footer</footer>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout categories={categories} />}>
+            {/* <Route index element={<Home />} /> */}
+            <Route path="basket" element={<Basket />} />
+            <Route path="checkout" element={<Checkout />} />
+            {/* <Route path="orderconfirmation" element={<OrderConfirmation />} /> */}
+            {/* <Route path="search" element={<SearchResults />} /> */}
+            <Route path="categories/:categoryId" element={<Category />} />
+            <Route path="products/:productId" element={<ProductDetail />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }

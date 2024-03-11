@@ -95,20 +95,6 @@ article {
   column-gap: 20px;
 }
 
-.category-product-title {
-  grid-column: 1 / span 3;
-  color: darkslategray;
-  font-weight: bold;
-  font-size: 1.5 em;
-  padding-left: 10px;
-  margin-top: 5px;
-}
-
-.category-product-image-container {
-  padding: 10px;
-  width: 80%;
-}
-
 .category-product-info-header {
   display: flex;
 }
@@ -118,12 +104,6 @@ article {
   font-size: 2em;
   font-weight: bold;
   padding-top: 10px;
-}
-
-.category-product-info-dimensions,
-.category-product-info-capacity {
-  display: flex;
-  flex-direction: row;
 }
 
 .category-product-info-dimensions h3,
@@ -157,10 +137,10 @@ article {
   /* padding-bottom: 0px; */
 }
 
-.category-product-action {
+/* .category-product-action {
   display: flex;
   flex-direction: column;
-}
+} */
 
 .category-product-action button {
   width: 160px;
