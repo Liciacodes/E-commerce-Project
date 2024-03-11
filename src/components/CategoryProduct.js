@@ -15,7 +15,7 @@ const CategoryProduct = ({
   return (
     <ProductInfoArticle>
       <ProductTitle>
-        <Link to={`products/${id}`}>{title}</Link>
+        <Link to={`/products/${id}`}>{title}</Link>
       </ProductTitle>
 
       <figure>
@@ -59,7 +59,7 @@ const CategoryProduct = ({
         </ProductInfoStock>
 
         <ProductInfoAction>
-          <ProductInfoActionButton onClick={() => navigate(`products/${id}`)}>
+          <ProductInfoActionButton onClick={() => navigate(`/products/${id}`)}>
             View Product
           </ProductInfoActionButton>
           <ProductInfoActionButton>Add to Basket</ProductInfoActionButton>

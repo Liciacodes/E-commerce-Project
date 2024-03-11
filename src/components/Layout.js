@@ -1,6 +1,6 @@
 import React from "react";
-
 import { Outlet, Link } from "react-router-dom";
+import styled from "styled-components";
 
 const Layout = ({ categories }) => {
   const renderCategories = () => {
@@ -26,9 +26,17 @@ const Layout = ({ categories }) => {
         </main>
       </section>
 
-      <footer>footer</footer>
+      <footer>
+        <FooterLinks to="/">Home</FooterLinks>{" "}
+        <FooterLinks to="/basket">Basket</FooterLinks>
+      </footer>
     </>
   );
 };
 
 export default Layout;
+
+const FooterLinks = styled(Link)`
+  color: blue;
+  text-decoration: underline;
+`;
