@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getProductById, getProducts } from "../fetcher";
+import { getProductById } from "../fetcher";
 import styled from "styled-components";
 
 const ProductDetail = () => {

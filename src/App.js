@@ -28,13 +28,13 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout categories={categories} />}>
-            <Route path="/" index element={<Home />} />
+            <Route index element={<Home />} />
             <Route path="/basket" element={<Basket />} />
-            <Route path="checkout" element={<Checkout />} />
+            <Route path="/checkout" element={<Checkout />} />
             {/* <Route path="orderconfirmation" element={<OrderConfirmation />} /> */}
             {/* <Route path="search" element={<SearchResults />} /> */}
-            <Route path="/products/:productId" element={<ProductDetail />} />
             <Route path="/categories/:categoryId" element={<Category />} />
+            <Route path="/products/:productId" element={<ProductDetail />} />
           </Route>
         </Routes>
       </BrowserRouter>
