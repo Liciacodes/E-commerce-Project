@@ -1,6 +1,7 @@
 import React from "react";
 import { Outlet, Link } from "react-router-dom";
 import styled from "styled-components";
+import { CartIcon, HomeIcon } from "./Icons";
 
 const Layout = ({ categories }) => {
   const renderCategories = () => {
@@ -12,7 +13,20 @@ const Layout = ({ categories }) => {
   };
   return (
     <>
-      <header>My Store</header>
+      <header>
+        <div id="headerHomeIcon">
+          <Link to="/">
+            <HomeIcon width={40} />
+          </Link>
+        </div>
+
+        <div id="headerTitle">Our Store</div>
+        <div id="headerCartIcon">
+          <Link to="/basket">
+            <CartIcon width={40} />
+          </Link>
+        </div>
+      </header>
       <section>
         <nav>
           {categories.errorMessage && (
