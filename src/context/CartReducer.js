@@ -1,10 +1,10 @@
 export const CartReducer = (state, action) => {
-  debugger;
   let index = -1;
   if (action.payload)
     index = state.cartItems.findIndex((x) => x.id === action.payload.id);
   switch (action.type) {
     case "INCQTY":
+      debugger;
       if (index === -1) {
         state.cartItems.push({ ...action.payload, quantity: 1 });
       } else {

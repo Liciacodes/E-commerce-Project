@@ -1,15 +1,42 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { CartContext } from "../context/CartContext";
+import { Link, useNavigate } from "react-router-dom";
+import { UpIcon, DownIcon, TrashIcon } from "./Icons";
 
 const Basket = () => {
-  const { getItems } = useContext(CartContext);
+  const navigate = useNavigate();
+  const {
+    getItems,
+    clearBasket,
+    increaseQuantity,
+    decreaseQuantity,
+    removeProduct,
+  } = useContext(CartContext);
 
   const renderCart = () => {
     const cartItems = getItems();
 
     if (cartItems.length > 0) {
-      return cartItems.map((p) => <div key={p.id}>{p.title}</div>);
+      debugger;
+      return cartItems.map((p) => (
+        <React.Fragment key={p.id}>
+          <div>
+            <Link to={`/products/${p.id}`}> {p.title}</Link>
+          </div>
+          <BasketQty>
+            {p.quantity}
+            <UpIcon width={20} onClick={() => increaseQuantity({ id: p.id })} />
+            <DownIcon
+              width={20}
+              onClick={() => decreaseQuantity({ id: p.id })}
+            />
+            <TrashIcon width={20} onClick={() => removeProduct({ id: p.id })} />
+          </BasketQty>
+
+          <BasketPrice>&pound;{p.price}</BasketPrice>
+        </React.Fragment>
+      ));
     } else {
       return <div>The basket is currently empty</div>;
     }
@@ -18,7 +45,9 @@ const Basket = () => {
   return (
     <BasketContainer>
       <BasketTitle>Shopping Basket</BasketTitle>
-      <BasketButton>Checkout</BasketButton>
+      <BasketButton onClick={() => navigate("/checkout")}>
+        Checkout
+      </BasketButton>
       <BasketTable>
         <BasketHeader>
           <h4>Item</h4>
@@ -28,8 +57,8 @@ const Basket = () => {
         <BasketHeaderLine />
         <BasketHeader>{renderCart()}</BasketHeader>
         <BasketHeaderLine />
-        <BasketButton>Clear</BasketButton>
-        <BasketTotal>£0</BasketTotal>
+        <BasketButton onClick={() => clearBasket()}>Clear</BasketButton>
+        <BasketTotal>&pound;0</BasketTotal>
       </BasketTable>
     </BasketContainer>
   );
