@@ -2,6 +2,7 @@ import React from "react";
 import { Outlet, Link } from "react-router-dom";
 import styled from "styled-components";
 import { CartIcon, HomeIcon } from "./Icons";
+import Search from "./Search";
 
 const Layout = ({ categories }) => {
   const renderCategories = () => {
@@ -19,7 +20,7 @@ const Layout = ({ categories }) => {
             <HomeIcon width={40} />
           </Link>
         </div>
-
+        <Search />
         <div id="headerTitle">Our Store</div>
         <div id="headerCartIcon">
           <Link to="/basket">

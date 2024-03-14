@@ -8,6 +8,8 @@ import Layout from "./components/Layout";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { getCategories } from "./fetcher";
 import Home from "./components/Home";
+import OrderConfirmation from "./components/OrderConfirmation";
+import SearchResults from "./components/SearchResults";
 
 function App() {
   const [categories, setCategories] = useState({
@@ -31,8 +33,8 @@ function App() {
             <Route index element={<Home />} />
             <Route path="/basket" element={<Basket />} />
             <Route path="/checkout" element={<Checkout />} />
-            {/* <Route path="orderconfirmation" element={<OrderConfirmation />} /> */}
-            {/* <Route path="search" element={<SearchResults />} /> */}
+            <Route path="/orderconfirmation" element={<OrderConfirmation />} />
+            <Route path="/search" element={<SearchResults />} />
             <Route path="/categories/:categoryId" element={<Category />} />
             <Route path="/products/:productId" element={<ProductDetail />} />
           </Route>
