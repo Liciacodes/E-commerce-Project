@@ -1,86 +1,119 @@
 import React from "react";
 import styled from "styled-components";
-
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Checkout = () => {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    shippingAddress1: "",
+  });
+
   const navigate = useNavigate();
-  const confirmOrder = (ev) => {
+
+  const errors = {
+    name: form.name.length === 0,
+    email: form.email.length === 0,
+    shippingAddress1: form.shippingAddress1.length === 0,
+  };
+
+  const disabled = Object.keys(errors).some((x) => errors[x]);
+
+  const handleChange = (ev) => {
+    const { name, value } = ev.target;
+    setForm((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (ev) => {
+    if (disabled) {
+      ev.preventDefault();
+      return;
+    }
     navigate("/orderconfirmation");
   };
+
+  const handleBlur = () => {};
+  const showError = () => {};
   return (
-    <CheckoutContainer>
-      {/* Row 1 */}
-      <CheckoutTitle>Shopping Checkout</CheckoutTitle>
+    <form onSubmit={handleSubmit}>
+      <CheckoutContainer>
+        {/* Row 1 */}
+        <CheckoutTitle>Shopping Checkout</CheckoutTitle>
 
-      {/* Row 4 */}
-      <CheckoutHeader>
-        <h4>Your Details</h4>
-      </CheckoutHeader>
+        {/* Row 4 */}
+        <CheckoutHeader>
+          <h4>Your Details</h4>
+        </CheckoutHeader>
 
-      {/* Row 5 */}
-      <CheckoutHeaderLine />
+        {/* Row 5 */}
+        <CheckoutHeaderLine />
 
-      {/* Row 6 */}
-      <CheckoutTable>
-        <CheckoutFormLabel>Name</CheckoutFormLabel>
-        <CheckoutInput
-          type="text"
-          name="name"
-          invalid={showError("name")}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          placeholder="Enter name"
-        />
-        <CheckoutFormLabel>Email</CheckoutFormLabel>
-        <CheckoutInput
-          type="text"
-          name="email"
-          invalid={showError("email")}
-          onChange={handleChange}
-          placeholder="Enter email"
-        />
-      </CheckoutTable>
-
-      {/* Row 7 */}
-      <CheckoutHeader>
-        <h4>Address Details</h4>
-      </CheckoutHeader>
-
-      {/* Row 8 */}
-      <CheckoutHeaderLine />
-
-      {/* Row 9 */}
-      <CheckoutTable>
-        <CheckoutFormLabel>Copy to shipping</CheckoutFormLabel>
-        <CheckoutFormCheckbox type="checkbox" />
-
-        <CheckoutFormLabel>Billing Address</CheckoutFormLabel>
-
-        <CheckoutAddress>
-          <input type="text" name="billingAddress1" />
-          <input type="text" name="billingAddress2" />
-          <input type="text" name="billingCity" />
-        </CheckoutAddress>
-
-        <CheckoutFormLabel>Shipping Address</CheckoutFormLabel>
-
-        <CheckoutAddress>
+        {/* Row 6 */}
+        <CheckoutTable>
+          <CheckoutFormLabel>Name</CheckoutFormLabel>
           <CheckoutInput
             type="text"
-            name="shippingAddress1"
-            invalid={showError("shippingAddress1")}
-            placeholder="Enter first address line"
+            name="name"
+            invalid={showError("name")}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            placeholder="Enter name"
           />
-          <input type="text" name="shippingAddress2" />
-          <input type="text" name="shippingCity" />
-        </CheckoutAddress>
-      </CheckoutTable>
+          <CheckoutFormLabel>Email</CheckoutFormLabel>
+          <CheckoutInput
+            type="text"
+            name="email"
+            invalid={showError("email")}
+            onChange={handleChange}
+            placeholder="Enter email"
+          />
+        </CheckoutTable>
 
-      <CancelButton onClick={() => navigate("/basket")}>Cancel</CancelButton>
+        {/* Row 7 */}
+        <CheckoutHeader>
+          <h4>Address Details</h4>
+        </CheckoutHeader>
 
-      <CheckoutButton disabled={disabled}>Confirm Order</CheckoutButton>
-    </CheckoutContainer>
+        {/* Row 8 */}
+        <CheckoutHeaderLine />
+
+        {/* Row 9 */}
+        <CheckoutTable>
+          <CheckoutFormLabel>Copy to shipping</CheckoutFormLabel>
+          <CheckoutFormCheckbox type="checkbox" />
+
+          <CheckoutFormLabel>Billing Address</CheckoutFormLabel>
+
+          <CheckoutAddress>
+            <input type="text" name="billingAddress1" />
+            <input type="text" name="billingAddress2" />
+            <input type="text" name="billingCity" />
+          </CheckoutAddress>
+
+          <CheckoutFormLabel>Shipping Address</CheckoutFormLabel>
+
+          <CheckoutAddress>
+            <CheckoutInput
+              type="text"
+              name="shippingAddress1"
+              invalid={showError("shippingAddress1")}
+              placeholder="Enter first address line"
+              onChange={handleChange}
+            />
+            <input type="text" name="shippingAddress2" />
+            <input type="text" name="shippingCity" />
+          </CheckoutAddress>
+        </CheckoutTable>
+
+        <CancelButton onClick={() => navigate("/basket")}>Cancel</CancelButton>
+
+        <CheckoutButton disabled={disabled}>Confirm Order</CheckoutButton>
+      </CheckoutContainer>
+    </form>
   );
 };
 

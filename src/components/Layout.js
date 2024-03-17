@@ -2,7 +2,7 @@ import React from "react";
 import { Outlet, Link } from "react-router-dom";
 import styled from "styled-components";
 import { CartIcon, HomeIcon } from "./Icons";
-import Search from "./Search";
+import Search from "../components/Search";
 
 const Layout = ({ categories }) => {
   const renderCategories = () => {
